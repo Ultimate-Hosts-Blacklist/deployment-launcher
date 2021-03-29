@@ -30,16 +30,15 @@ License:
     SOFTWARE.
 """
 
-from re import compile as comp
-from re import sub as substring
+import re
 from typing import List
 
-from setuptools import setup
+from setuptools import find_namespace_packages, setup
 
 NAMESPACE = "ultimate_hosts_blacklist"
 MODULE = "deployment_launcher"
 
-PYPI_NAME = substring(r"_", r"-", f"{NAMESPACE}-{MODULE}")
+PYPI_NAME = re.sub(r"_", r"-", f"{NAMESPACE}-{MODULE}")
 
 
 def get_requirements() -> List[str]:
@@ -77,7 +76,7 @@ def get_version():
     with open(
         f"ultimate_hosts_blacklist/{MODULE}/__init__.py", encoding="utf-8"
     ) as file_stream:
-        to_match = comp(r'__version__\s=\s"(.*)"')
+        to_match = re.compile(r'__version__\s=\s"(.*)"')
 
         return to_match.findall(file_stream.read())[0]
 
@@ -101,7 +100,7 @@ if __name__ == "__main__":
         license="MIT",
         url="https://github.com/Ultimate-Hosts-Blacklist/dev-center/tree/central-repo-updater",
         platforms=["any"],
-        packages=[f"ultimate_hosts_blacklist.{MODULE}"],
+        packages=find_namespace_packages(),
         keywords=["Ultimate Hosts Blacklist"],
         classifiers=[
             "Environment :: Console",
@@ -118,4 +117,5 @@ if __name__ == "__main__":
                 f"ultimate-hosts-blacklist-deployment-launcher=ultimate_hosts_blacklist.{MODULE}.cli:tool",
             ]
         },
+        include_package_data=True,
     )
