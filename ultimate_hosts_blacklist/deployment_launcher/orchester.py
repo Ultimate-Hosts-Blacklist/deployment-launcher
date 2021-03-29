@@ -121,7 +121,7 @@ class Orchestration:
 
         url_base = hubgit.PARTIAL_RAW_URL % repo_name
 
-        domain_url = url_base + "domain.list"
+        domain_url = url_base + "domains.list"
         clean_url = url_base + "clean.list"
         ip_url = url_base + "ip.list"
         whitelisted_url = url_base + "whitelisted.list"
