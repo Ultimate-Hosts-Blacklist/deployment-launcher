@@ -94,6 +94,8 @@ if __name__ == "__main__":
     setup(
         name=PYPI_NAME,
         version=get_version(),
+        author="funilrys",
+        author_email="contact@funilrys.com",
         install_requires=get_requirements(),
         description="The deployment launcher of the Ultimate Hosts Blacklist project.",
         long_description=get_long_description(),
