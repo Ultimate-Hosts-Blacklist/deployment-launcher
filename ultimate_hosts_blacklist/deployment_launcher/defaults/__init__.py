@@ -1,7 +1,7 @@
 """
-The tool to update the central repository of the Ultimate-Hosts-Blacklist project.
+The deployment launcher of the Ultimate Hosts Blacklist project.
 
-Provide the cleaning logic.
+This is the package which provides some of our default settings.
 
 License:
 ::
@@ -31,23 +31,3 @@ License:
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 """
-from ultimate_hosts_blacklist.helpers import File
-
-
-class Clean:  # pylint: disable=too-few-public-methods
-    """
-    Clean all uneeded files.
-    """
-
-    uneeded = [
-        "public-suffix.json",
-        "iana-domains-db.json",
-        ".PyFunceble.yaml",
-        ".PyFunceble_production.yaml",
-        "dir_structure.json",
-        "whois_db",
-    ]
-
-    def __init__(self):
-        for element in self.uneeded:
-            File(element).delete()

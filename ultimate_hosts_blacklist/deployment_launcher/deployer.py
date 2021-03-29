@@ -1,40 +1,11 @@
-Deployment launcher
-===================
+"""
+The deployment launcher of the Ultimate Hosts Blacklist project.
 
-The deployment launcher of the Ultimate-Hosts-Blacklist.
+This is the module that provides or trigger the deployment.
 
-Installation
-------------
-
+License:
 ::
 
-    $ pip3 install --user ultimate-hosts-blacklist-deployment-launcher
-
-
-
-Usage
------
-
-The launcher can be called as :code:`uhb-deployment-launcher`, or :code:`ultimate-hosts-blacklist-deployment-launcher`.
-
-::
-
-    usage: ultimate-hosts-blacklist-deployment-launcher [-h] [-d] [-v]
-
-    The deployment launcher of the Ultimate Hosts Blacklist project.
-
-    optional arguments:
-        -h, --help     show this help message and exit
-        -d, --debug    Activates the debug mode.
-        -v, --version  Show the version end exits.
-
-    Crafted with ♥ by Nissar Chababy (Funilrys)
-
-
-License
--------
-
-::
 
     MIT License
 
@@ -59,3 +30,33 @@ License
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
+"""
+
+import requests
+import logging
+from PyFunceble.cli.continuous_integration.base import ContinuousIntegrationBase
+
+from ultimate_hosts_blacklist.deployment_launcher.defaults import infrastructure
+
+
+def github(ci_engine: ContinuousIntegrationBase) -> None:
+    """
+    Deploy to our central GitHub repository.
+    """
+
+    logging.info("Started deployment to GitHub.")
+    ci_engine.apply_end_commit()
+    logging.info("Finished deployment to GitHub.")
+
+
+def hosts_ubuntu101_co_za() -> None:
+    """
+    Trigger the deployment tool behind our domain.
+    """
+
+    logging.info("Started deployment request to our mirror.")
+    requests.get(
+        infrastructure.DOMAIN_DEPLOYMENT_LINK,
+        headers={"User-Agent": "Ultimate-Hosts-Blacklist/central-repo-updaters"},
+    )
+    logging.info("Finished deployment request to our mirror.")

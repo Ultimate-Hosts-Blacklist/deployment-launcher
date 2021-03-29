@@ -1,46 +1,17 @@
-Deployment launcher
-===================
+"""
+The deployment launcher of the Ultimate Hosts Blacklist project.
 
-The deployment launcher of the Ultimate-Hosts-Blacklist.
+This is the module that provides everything related to the way we interact of
+GitHub.
 
-Installation
-------------
-
+License:
 ::
 
-    $ pip3 install --user ultimate-hosts-blacklist-deployment-launcher
-
-
-
-Usage
------
-
-The launcher can be called as :code:`uhb-deployment-launcher`, or :code:`ultimate-hosts-blacklist-deployment-launcher`.
-
-::
-
-    usage: ultimate-hosts-blacklist-deployment-launcher [-h] [-d] [-v]
-
-    The deployment launcher of the Ultimate Hosts Blacklist project.
-
-    optional arguments:
-        -h, --help     show this help message and exit
-        -d, --debug    Activates the debug mode.
-        -v, --version  Show the version end exits.
-
-    Crafted with ♥ by Nissar Chababy (Funilrys)
-
-
-License
--------
-
-::
 
     MIT License
 
     Copyright (c) 2019, 2020, 2021 Ultimate-Hosts-Blacklist
     Copyright (c) 2019, 2020, 2021 Nissar Chababy
-    Copyright (c) 2019, 2020, 2021 Mitchell Krog
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -59,3 +30,20 @@ License
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
+"""
+
+import os
+
+USERNAME: str = "ultimate-hosts-blacklist-bot"
+
+if "GITHUB_TOKEN" in os.environ:
+    GITHUB_TOKEN: str = os.environ["GITHUB_TOKEN"]
+else:
+    GITHUB_TOKEN: str = None
+
+ORG_SLUG_NAME: str = "Ultimate-Hosts-Blacklist"
+
+RAW_URL_BASE: str = "https://raw.githubusercontent.com"
+PARTIAL_RAW_URL: str = f"{RAW_URL_BASE}/{ORG_SLUG_NAME}/%s/master/"
+
+IGNORE_REPO_RAW_URL: str = (PARTIAL_RAW_URL + "deployment/ignore-repo") % "dev-center"

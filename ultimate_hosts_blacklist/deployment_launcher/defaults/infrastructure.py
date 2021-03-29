@@ -1,7 +1,7 @@
 """
-The tool to update the central repository of the Ultimate-Hosts-Blacklist project.
+The deployment launcher of the Ultimate Hosts Blacklist project.
 
-Provide the deployement logic.
+This is the module that provides everything related to our infrastructure.
 
 License:
 ::
@@ -31,33 +31,43 @@ License:
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 """
-from requests import get
 
-from ultimate_hosts_blacklist.central_repo_updater.configuration import Infrastructure
+import os
+from datetime import datetime
+from typing import List
+
+from PyFunceble.helpers.download import DownloadHelper
+
+from .hubgit import IGNORE_REPO_RAW_URL
+
+CURRENT_DATETIME: datetime = datetime.utcnow()
+
+REPOSITORIES_TO_IGNORE: List[str] = [
+    x.strip()
+    for x in DownloadHelper(IGNORE_REPO_RAW_URL).download_text().splitlines()
+    if x and not x.strip().startswith("#")
+]
+
+for index, line in enumerate(REPOSITORIES_TO_IGNORE):
+    if "#" in line:
+        line = line[: line.find("#")].strip()
+
+        REPOSITORIES_TO_IGNORE[index] = line
 
 
-class Deploy:
-    """
-    Provide the deployement logic.
-    """
+if "GITHUB_RUN_NUMBER" in os.environ:
+    VERSION: str = (
+        f"V2.{os.environ['GITHUB_RUN_NUMBER']}."
+        f"{CURRENT_DATETIME.strftime('%Y')}."
+        f"{CURRENT_DATETIME.strftime('%m')}."
+        f"{CURRENT_DATETIME.strftime('%d')}"
+    )
+else:
+    VERSION = (
+        f"V2."
+        f"{CURRENT_DATETIME.strftime('%Y')}."
+        f"{CURRENT_DATETIME.strftime('%m')}."
+        f"{CURRENT_DATETIME.strftime('%d')}"
+    )
 
-    def __init__(self, ci_engine):
-        self.ci_engine = ci_engine
-
-    def github(self):
-        """
-        Deploy to GitHub.
-        """
-
-        self.ci_engine.end_commit()
-
-    @classmethod
-    def hosts_ubuntu101_co_za(cls):
-        """
-        Deploy to our mirror: hosts.ubuntu101.co.za.
-        """
-
-        get(
-            Infrastructure.links["deploy"],
-            headers={"User-Agent": "Ultimate-Hosts-Blacklist/central-repo-updaters"},
-        )
+DOMAIN_DEPLOYMENT_LINK: str = "https://hosts.ubuntu101.co.za/update_hosts.php"

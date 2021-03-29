@@ -1,0 +1,40 @@
+### The Ultimate hosts.deny for Linux / Unix based operating Systems
+### Copyright (c) 2017, 2018, 2019, 2020, 2021 Ultimate Hosts Blacklist - @Ultimate-Hosts-Blacklist
+### Copyright (c) 2017, 2018, 2019, 2020, 2021 Mitchell Krog - @mitchellkrogza
+### Copyright (c) 2017, 2018, 2019, 2020, 2021 Nissar Chababy - @funilrys
+### Repo Url: https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist
+
+##############################################################################################################################
+#                                                                                                                            #
+#  ##     ## ##       ######## #### ##     ##    ###    ######## ########    ##     ##  #######   ######  ########  ######   #
+#  ##     ## ##          ##     ##  ###   ###   ## ##      ##    ##          ##     ## ##     ## ##    ##    ##    ##    ##  #
+#  ##     ## ##          ##     ##  #### ####  ##   ##     ##    ##          ##     ## ##     ## ##          ##    ##        #
+#  ##     ## ##          ##     ##  ## ### ## ##     ##    ##    ######      ######### ##     ##  ######     ##     ######   #
+#  ##     ## ##          ##     ##  ##     ## #########    ##    ##          ##     ## ##     ##       ##    ##          ##  #
+#  ##     ## ##          ##     ##  ##     ## ##     ##    ##    ##          ##     ## ##     ## ##    ##    ##    ##    ##  #
+#   #######  ########    ##    #### ##     ## ##     ##    ##    ########    ##     ##  #######   ######     ##     ######   #
+#                                                                                                                            #
+#  ########  ##          ###     ######  ##    ## ##       ####  ######  ########                                            #
+#  ##     ## ##         ## ##   ##    ## ##   ##  ##        ##  ##    ##    ##                                               #
+#  ##     ## ##        ##   ##  ##       ##  ##   ##        ##  ##          ##                                               #
+#  ########  ##       ##     ## ##       #####    ##        ##   ######     ##                                               #
+#  ##     ## ##       ######### ##       ##  ##   ##        ##        ##    ##                                               #
+#  ##     ## ##       ##     ## ##    ## ##   ##  ##        ##  ##    ##    ##                                               #
+#  ########  ######## ##     ##  ######  ##    ## ######## ####  ######     ##                                               #
+#                                                                                                                            #
+##############################################################################################################################
+
+### MIT LICENSE
+
+### You are free to copy and distribute this file for non-commercial uses,
+### as long the original URL and attribution is included.
+
+### Please forward any additions, corrections or comments by logging an issue at
+### https://github.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist/issues
+
+##### Version Information #
+#### Version: %%version%%
+#### Total IP's: %%lenIP%%
+##### Version Information ##
+
+# ##### START hosts.deny Block List # DO NOT EDIT #####

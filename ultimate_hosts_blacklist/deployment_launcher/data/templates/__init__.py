@@ -1,40 +1,11 @@
-Deployment launcher
-===================
+"""
+The deployment launcher of the Ultimate Hosts Blacklist project.
 
-The deployment launcher of the Ultimate-Hosts-Blacklist.
+This is the package that provides the template data.
 
-Installation
-------------
-
+License:
 ::
 
-    $ pip3 install --user ultimate-hosts-blacklist-deployment-launcher
-
-
-
-Usage
------
-
-The launcher can be called as :code:`uhb-deployment-launcher`, or :code:`ultimate-hosts-blacklist-deployment-launcher`.
-
-::
-
-    usage: ultimate-hosts-blacklist-deployment-launcher [-h] [-d] [-v]
-
-    The deployment launcher of the Ultimate Hosts Blacklist project.
-
-    optional arguments:
-        -h, --help     show this help message and exit
-        -d, --debug    Activates the debug mode.
-        -v, --version  Show the version end exits.
-
-    Crafted with ♥ by Nissar Chababy (Funilrys)
-
-
-License
--------
-
-::
 
     MIT License
 
@@ -59,3 +30,4 @@ License
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
+"""
