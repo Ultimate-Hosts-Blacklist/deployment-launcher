@@ -77,6 +77,9 @@ class Orchestration:
             end_commit_message=f"[{infrastructure.VERSION}]",
         )
 
+        self.ci_engine.commit_message = f"[{infrastructure.VERSION}]"
+        self.ci_engine.end_commit_message = f"[{infrastructure.VERSION}]"
+
         if self.ci_engine.authorized:
             self.ci_engine.init()
 
