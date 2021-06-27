@@ -468,7 +468,6 @@ class Orchestration:
             generate_input_queue=True,
             generate_output_queue=False,
         )
-        sorter_process.send_feeding_signal(worker_name="uhb_controller")
 
         files = [self.temp_files["domain"].name, self.temp_files["ip"].name]
 
