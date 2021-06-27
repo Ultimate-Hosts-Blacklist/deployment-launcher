@@ -32,8 +32,9 @@ License:
     SOFTWARE.
 """
 
-import requests
 import logging
+
+import requests
 from PyFunceble.cli.continuous_integration.base import ContinuousIntegrationBase
 
 from ultimate_hosts_blacklist.deployment_launcher.defaults import infrastructure

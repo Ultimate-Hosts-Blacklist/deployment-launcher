@@ -32,6 +32,7 @@ License:
     SOFTWARE.
 """
 
+import json
 import logging
 import os
 from typing import List, Optional
@@ -307,7 +308,9 @@ def windows_hosts(*args: List[str]) -> None:
     )
 
 
-def readme_md(*, domains_files: List[str], ip_files: List[str]) -> None:
+def readme_md(
+    *, domains_files: List[str], ip_files: List[str], info_files: List[str]
+) -> None:
     """
     Generates the Windows hosts file.
 
@@ -342,10 +345,26 @@ def readme_md(*, domains_files: List[str], ip_files: List[str]) -> None:
 
                 ips_count += 1
 
+    data = []
+
+    for file in info_files:
+        with open(file, encoding="utf-8") as file_stream:
+            try:
+                data.append(json.loads(file_stream.read()))
+            except json.decoder.JSONDecodeError:
+                logging.critical("Could not decode (info.json): %s", file)
+
+    data = list(sorted(data, key=lambda x: x["name"].lower()))
+
+    single_format = "| %(name)s | [Link](https://github.com/Ultimate-Hosts-Blacklist/%(name)s) | [Link](%(raw_link)s) |"
+
+    filtered_data = [single_format % x for x in data]
+
     template = template.replace("%%version%%", infrastructure.VERSION)
     template = template.replace("%%lenHosts%%", f"{domains_count:,d}")
     template = template.replace("%%lenIPs%%", f"{ips_count:,d}")
     template = template.replace("%%lenHostsIPs%%", f"{domains_count + ips_count:,d}")
+    template = template.replace("%%credit-table%%", "\n".join(filtered_data))
 
     with open(destination, "w", encoding="utf-8") as file_stream:
         file_stream.write(template + "\n")

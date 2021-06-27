@@ -264,9 +264,11 @@ The sources of the input data information are as follows.
 
 [![Buy Mitchell some Coffee](https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist/master/.assets/kofi5.png)](https://ko-fi.com/mitchellkrog)
 
-#### :sparkling_heart: Buy Nissar a Coffee :point_down:
+#### :sparkling_heart: Support Nissar :point_down:
 
 [![Buy Nissar some Coffee](https://raw.githubusercontent.com/Ultimate-Hosts-Blacklist/Ultimate.Hosts.Blacklist/master/.assets/kofi5.png)](https://ko-fi.com/funilrys)
+
+[:heart: Sponsor Nissar on GitHub](https://github.com/sponsors/funilrys)
 
 ---
 

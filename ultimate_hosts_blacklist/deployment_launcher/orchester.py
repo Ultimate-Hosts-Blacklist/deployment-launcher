@@ -36,9 +36,10 @@ import concurrent.futures
 import contextlib
 import heapq
 import logging
+import os
 import secrets
-import time
 import tempfile
+import time
 from typing import Dict, Generator, List, Optional, Tuple
 
 import PyFunceble.facility
@@ -80,6 +81,7 @@ class Orchestration:
         self.temp_dirs = {
             "ip": tempfile.TemporaryDirectory(),
             "domain": tempfile.TemporaryDirectory(),
+            "info": tempfile.TemporaryDirectory(),
         }
 
         self.temp_files = {
@@ -112,7 +114,7 @@ class Orchestration:
             yield repository.name
 
     @staticmethod
-    def fetch_data(repo_name: str) -> None:
+    def fetch_data(repo_name: str, info_dir: str) -> Tuple[str]:
         """
         Fetches the data of the given input source.
         """
@@ -121,6 +123,7 @@ class Orchestration:
 
         url_base = hubgit.PARTIAL_RAW_URL % repo_name
 
+        info_url = url_base + "info.json"
         domain_url = url_base + "domains.list"
         clean_url = url_base + "clean.list"
         ip_url = url_base + "ip.list"
@@ -134,6 +137,7 @@ class Orchestration:
         ip_file_to_deliver = None
         domain_file_to_deliver = None
 
+        download_info_file = os.path.join(info_dir, secrets.token_hex(8))
         downloaded_ip_file = tempfile.NamedTemporaryFile("r", delete=False)
         downloaded_domain_file = tempfile.NamedTemporaryFile("r", delete=False)
         downloaded_clean_file = tempfile.NamedTemporaryFile("r", delete=False)
@@ -141,6 +145,30 @@ class Orchestration:
 
         output_ip_file = tempfile.NamedTemporaryFile("w", delete=False)
         output_domain_file = tempfile.NamedTemporaryFile("w", delete=False)
+
+        try:
+            logging.info(
+                "[%r] Started to download %r into %r",
+                repo_name,
+                info_url,
+                download_info_file,
+            )
+
+            DownloadHelper(info_url).download_text(destination=download_info_file)
+
+            logging.info(
+                "[%r] Finished to download %r into %r",
+                repo_name,
+                info_url,
+                download_info_file,
+            )
+        except UnableToDownload:
+            logging.critical(
+                "[%r] Could not download %r into %r. Reason: Not found.",
+                repo_name,
+                info_url,
+                download_info_file,
+            )
 
         try:
             logging.info(
@@ -383,7 +411,9 @@ class Orchestration:
             submitted_tasks: List[concurrent.futures.Future] = list()
 
             for repo_name in self.get_repositories():
-                task = executor.submit(self.fetch_data, repo_name)
+                task = executor.submit(
+                    self.fetch_data, repo_name, self.temp_dirs["info"].name
+                )
 
                 submitted_tasks.append(task)
 
@@ -471,7 +501,14 @@ class Orchestration:
         generator.superhosts_deny(domains_file, ip_file)
         generator.unix_hosts(domains_file)
         generator.windows_hosts(domains_file)
-        generator.readme_md(domains_files=(domains_file,), ip_files=(ip_file,))
+        generator.readme_md(
+            domains_files=(domains_file,),
+            ip_files=(ip_file,),
+            info_files=[
+                os.path.join(self.temp_dirs["info"].name, x)
+                for x in os.listdir(self.temp_dirs["info"].name)
+            ],
+        )
 
     def start(self) -> "Orchestration":
         """
