@@ -74,7 +74,7 @@ class Orchestration:
     def __init__(self) -> None:
         self.ci_engine = ci_object(
             commit_message=f"[{infrastructure.VERSION}]",
-            end_commit_message="[{infrastructure.VERSION}]",
+            end_commit_message=f"[{infrastructure.VERSION}]",
         )
 
         if self.ci_engine.authorized:
