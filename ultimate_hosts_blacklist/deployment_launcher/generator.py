@@ -356,7 +356,7 @@ def readme_md(
 
     data = list(sorted(data, key=lambda x: x["name"].lower()))
 
-    single_format = "| %(name)s | [Link](https://github.com/Ultimate-Hosts-Blacklist/%(name)s) | [Link](%(raw_link)s) |"
+    single_format = "| %(name)s | [Link](https://github.com/Ultimate-Hosts-Blacklist/%(name)s) | [Link](%(raw_link)s) |"  # noqa: E501
 
     filtered_data = [single_format % x for x in data]
 
