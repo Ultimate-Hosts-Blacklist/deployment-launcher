@@ -36,6 +36,7 @@ import logging
 
 import requests
 from PyFunceble.cli.continuous_integration.base import ContinuousIntegrationBase
+from PyFunceble.cli.continuous_integration.exceptions import StopExecution
 
 from ultimate_hosts_blacklist.deployment_launcher.defaults import infrastructure
 
@@ -45,9 +46,12 @@ def github(ci_engine: ContinuousIntegrationBase) -> None:
     Deploy to our central GitHub repository.
     """
 
-    logging.info("Started deployment to GitHub.")
-    ci_engine.apply_end_commit()
-    logging.info("Finished deployment to GitHub.")
+    try:
+        logging.info("Started deployment to GitHub.")
+        ci_engine.apply_end_commit()
+        logging.info("Finished deployment to GitHub.")
+    except StopExecution:
+        pass
 
 
 def hosts_ubuntu101_co_za() -> None:

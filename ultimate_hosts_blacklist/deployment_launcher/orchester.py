@@ -48,6 +48,7 @@ from github import Github
 from PyFunceble.checker.syntax.domain import DomainSyntaxChecker
 from PyFunceble.checker.syntax.ip import IPSyntaxChecker
 from PyFunceble.cli.continuous_integration.base import ContinuousIntegrationBase
+from PyFunceble.cli.continuous_integration.exceptions import StopExecution
 from PyFunceble.cli.continuous_integration.utils import ci_object
 from PyFunceble.cli.processes.file_sorter import FileSorterProcessesManager
 from PyFunceble.helpers.download import DownloadHelper
@@ -71,7 +72,10 @@ class Orchestration:
     temp_files: Dict[str, tempfile.NamedTemporaryFile] = dict()
 
     def __init__(self) -> None:
-        self.ci_engine = ci_object()
+        self.ci_engine = ci_object(
+            commit_message=f"[{infrastructure.VERSION}]",
+            end_commit_message="[{infrastructure.VERSION}]",
+        )
 
         if self.ci_engine.authorized:
             self.ci_engine.init()
@@ -514,20 +518,24 @@ class Orchestration:
         Starts the orchestration of the system.
         """
 
-        fetched_files = self.fetch_and_get_files()
+        try:
+            _ = self.ci_engine.bypass()
+            fetched_files = self.fetch_and_get_files()
 
-        domain_files, ip_files = self.merge_fetched_filed(fetched_files)
+            domain_files, ip_files = self.merge_fetched_filed(fetched_files)
 
-        for file in domain_files:
-            self.temp_files[secrets.token_hex(6)] = file
+            for file in domain_files:
+                self.temp_files[secrets.token_hex(6)] = file
 
-        for file in ip_files:
-            self.temp_files[secrets.token_hex(6)] = file
+            for file in ip_files:
+                self.temp_files[secrets.token_hex(6)] = file
 
-        self.sort_unique_files()
-        self.generate_files()
+            self.sort_unique_files()
+            self.generate_files()
 
-        if self.ci_engine.authorized:
-            deployer.github(self.ci_engine)
-            time.sleep(60)
-            deployer.hosts_ubuntu101_co_za()
+            if self.ci_engine.authorized:
+                deployer.github(self.ci_engine)
+                time.sleep(60)
+                deployer.hosts_ubuntu101_co_za()
+        except StopExecution:
+            logging.info("Stopping because release has been already done.")
