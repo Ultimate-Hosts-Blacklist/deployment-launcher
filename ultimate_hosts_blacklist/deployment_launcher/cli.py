@@ -83,4 +83,4 @@ def tool() -> None:
 
     logging.info("Launcher version: %s", __version__)
 
-    Orchestration().start()
+    Orchestration(debug=args.debug).start()

@@ -71,14 +71,20 @@ class Orchestration:
     temp_dirs: Dict[str, tempfile.TemporaryDirectory] = dict()
     temp_files: Dict[str, tempfile.NamedTemporaryFile] = dict()
 
-    def __init__(self) -> None:
+    commit_message: Optional[str] = None
+    debug: Optional[bool] = None
+
+    def __init__(self, *, debug: bool = False) -> None:
+        self.commit_message = f"[{infrastructure.VERSION}]"
+        self.debug = debug
+
         self.ci_engine = ci_object(
-            commit_message=f"[{infrastructure.VERSION}]",
-            end_commit_message=f"[{infrastructure.VERSION}]",
+            commit_message=self.commit_message,
+            end_commit_message=self.commit_message,
         )
 
-        self.ci_engine.commit_message = f"[{infrastructure.VERSION}]"
-        self.ci_engine.end_commit_message = f"[{infrastructure.VERSION}]"
+        self.ci_engine.commit_message = self.commit_message
+        self.ci_engine.end_commit_message = self.commit_message
 
         if self.ci_engine.authorized:
             self.ci_engine.init()
@@ -465,7 +471,15 @@ class Orchestration:
         PyFunceble.storage.CONFIG_DIRECTORY = local_temp_dir.name
 
         PyFunceble.facility.ConfigLoader.set_merge_upstream(True).set_custom_config(
-            {"debug": {"level": "debug", "active": True}}
+            {
+                "debug": {"level": "debug", "active": self.debug},
+                "cli_testing": {
+                    "ci": {
+                        "commit_message": self.commit_message,
+                        "end_commit_message": self.commit_message,
+                    }
+                },
+            }
         ).start()
 
         logging.info("Started to sort files.")
