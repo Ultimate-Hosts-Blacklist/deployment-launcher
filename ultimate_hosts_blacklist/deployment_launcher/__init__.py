@@ -32,4 +32,4 @@ License:
     SOFTWARE.
 """
 
-__version__ = "2.0.0b7"
+__version__ = "2.0.0b8"
