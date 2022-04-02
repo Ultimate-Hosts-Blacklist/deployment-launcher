@@ -53,6 +53,7 @@ def generate_next_file(
     input_files: List[str],
     template: Optional[str] = None,
     endline: Optional[str] = None,
+    write_mode: Optional[str] = "lf"
 ) -> None:
     """
     A general function which write into the next file.
@@ -70,6 +71,22 @@ def generate_next_file(
     :param endline:
         The last line to write.
     """
+
+    windows_lf = "\r\n"
+    unix_lf = "\n"
+
+    if write_mode.lower() == "lf":
+        line_ending = unix_lf
+
+        if template:
+            template = template.replace(windows_lf, unix_lf)
+    elif write_mode.lower() == "crlf":
+        line_ending = windows_lf
+
+        if template:
+            template = template.replace(unix_lf, windows_lf)
+    else:
+        raise ValueError("<write_mode> not supported.")
 
     dir_helper = DirectoryHelper(directory_path)
 
@@ -94,7 +111,7 @@ def generate_next_file(
                     logging.info("Started Generation of %r", destination)
 
                 with open(
-                    destination, "a+", encoding="utf-8"
+                    destination, "a+", encoding="utf-8", newline=line_ending
                 ) as destination_file_stream:
                     if i == 0 and template and not template_written:
                         logging.debug("Writting template:\n%s", template)
@@ -102,7 +119,7 @@ def generate_next_file(
 
                         template_written = True
 
-                    destination_file_stream.write(f"{format_to_apply.format(line)}\n")
+                    destination_file_stream.write(f"{format_to_apply.format(line)}{line_ending}")
 
                     if destination_file_stream.tell() >= outputs.MAX_FILE_SIZE_IN_BYTES:
                         logging.info(
@@ -305,8 +322,8 @@ def windows_hosts(*args: List[str]) -> None:
         args,
         template=template,
         endline="# END HOSTS LIST ### DO NOT EDIT THIS LINE AT ALL ###",
+        write_mode="crlf"
     )
-
 
 def readme_md(
     *, domains_files: List[str], ip_files: List[str], info_files: List[str]
