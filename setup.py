@@ -7,9 +7,9 @@ License:
 
     MIT License
 
-    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022 Ultimate-Hosts-Blacklist
-    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022 Nissar Chababy
-    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022 Mitchell Krog
+    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Ultimate-Hosts-Blacklist Contributors
+    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Nissar Chababy - @funilrys
+    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Mitchell Krog - @mitchellkrogza
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -86,7 +86,7 @@ def get_long_description():  # pragma: no cover
     Provides the long description.
     """
 
-    with open("README.rst", encoding="utf-8") as file_stream:
+    with open("README.md", encoding="utf-8") as file_stream:
         return file_stream.read()
 
 
@@ -99,6 +99,7 @@ if __name__ == "__main__":
         install_requires=get_requirements(),
         description="The deployment launcher of the Ultimate Hosts Blacklist project.",
         long_description=get_long_description(),
+        long_description_content_type="text/markdown",
         license="MIT",
         url="https://github.com/Ultimate-Hosts-Blacklist/dev-center/tree/central-repo-updater",
         platforms=["any"],

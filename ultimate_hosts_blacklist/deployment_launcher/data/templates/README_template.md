@@ -284,8 +284,8 @@ Come drop by and visit [Mitchell's Portfolio](https://mitchellkrog.com).
 MIT License
 
 Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022 Ultimate Hosts Blacklist - @Ultimate-Hosts-Blacklist
-Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022 Mitchell Krog - @mitchellkrogza
-Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022 Nissar Chababy - @funilrys
+Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Mitchell Krog - @mitchellkrogza - @mitchellkrogza
+Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Nissar Chababy - @funilrys - @funilrys
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

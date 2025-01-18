@@ -1,3 +1,37 @@
+# Deployment launcher
+
+The deployment launcher of the Ultimate-Hosts-Blacklist.
+
+## Installation
+
+
+```
+$ pip3 install --user ultimate-hosts-blacklist-deployment-launcher
+```
+
+
+## Usage
+
+The launcher can be called as `uhb-deployment-launcher`, or `ultimate-hosts-blacklist-deployment-launcher`.
+
+
+```
+usage: ultimate-hosts-blacklist-deployment-launcher [-h] [-d] [-v]
+
+The deployment launcher of the Ultimate Hosts Blacklist project.
+
+optional arguments:
+    -h, --help     show this help message and exit
+    -d, --debug    Activates the debug mode.
+    -v, --version  Show the version end exits.
+
+Crafted with ♥ by Nissar Chababy (Funilrys)
+```
+
+
+# License
+
+```
 MIT License
 
 Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Ultimate-Hosts-Blacklist Contributors
@@ -21,3 +55,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```

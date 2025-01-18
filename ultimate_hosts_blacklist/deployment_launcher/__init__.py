@@ -9,9 +9,9 @@ License:
 
     MIT License
 
-    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022 Ultimate-Hosts-Blacklist
-    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022 Nissar Chababy
-    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022 Mitchell Krog
+    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Ultimate-Hosts-Blacklist Contributors
+    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Nissar Chababy - @funilrys
+    Copyright (c) 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Mitchell Krog - @mitchellkrogza
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -32,4 +32,4 @@ License:
     SOFTWARE.
 """
 
-__version__ = "2.0.0b8"
+__version__ = "2.0.1"
